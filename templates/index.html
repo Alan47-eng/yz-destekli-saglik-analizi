@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sağlık Belirti Analizi</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f8;
+        }
+        .container {
+            width: 420px;
+            margin: 80px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #eef2ff;
+            border-left: 4px solid #2563eb;
+        }
+        .danger {
+            background-color: #fee2e2;
+            border-left: 4px solid #dc2626;
+        }
+        .warning {
+            background-color: #fff7ed;
+            border-left: 4px solid #f97316;
+        }
+        .disclaimer {
+            margin-top: 15px;
+            font-size: 11px;
+            color: #9ca3af;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Sağlık Belirti Analizi</h2>
+
+    <form method="post" action="/tahmin">
+        <input
+            type="text"
+            name="belirti"
+            placeholder="Şikayetinizi yazınız"
+            value="{{ belirti or '' }}"
+            required
+        >
+        <button type="submit">Analiz Et</button>
+    </form>
+
+    {% if sonuc %}
+    <div class="result">
+        <div style="font-size: 13px; color: #4b5563; margin-bottom: 4px;">
+            En olası durum
+        </div>
+        <div style="font-size: 18px; font-weight: bold;">
+            {{ sonuc }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if tavsiye %}
+    <div class="result">
+        <strong>Öneri:</strong><br>
+        {{ tavsiye }}
+    </div>
+    {% endif %}
+
+    {% if acil %}
+    <div class="result danger">
+        <strong>ACİL UYARI:</strong><br>
+        Lütfen gecikmeden 112’yi arayınız.
+    </div>
+    {% endif %}
+
+    {% if aciklama %}
+    <div class="result warning">
+        {{ aciklama }}
+    </div>
+    {% endif %}
+
+    <div class="disclaimer">
+        Bu sistem tıbbi teşhis amacıyla kullanılmaz.
+    </div>
+
+</div>
+
+</body>
+</html>
