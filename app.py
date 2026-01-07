@@ -2,9 +2,6 @@ from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import pickle
-import sys
-
-sys.dont_write_bytecode = True
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
